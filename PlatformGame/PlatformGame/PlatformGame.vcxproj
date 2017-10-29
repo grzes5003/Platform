@@ -19,7 +19,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Physic.cpp" />
+    <ClCompile Include="Ridigbody.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Physic.h" />
+    <ClInclude Include="pos.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Ridigbody.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PlatformGame.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4F8B10CB-2772-46DE-80F7-3F2729C19DFF}</ProjectGuid>
