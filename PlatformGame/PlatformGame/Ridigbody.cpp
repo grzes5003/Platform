@@ -3,6 +3,8 @@
 
 
 Ridigbody::Ridigbody() {
+	position = pos(); mass = 1; _isPhysical = 1;
+	isStatic = false;
 }
 
 

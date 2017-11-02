@@ -9,7 +9,8 @@ protected:
 	pos position;					// position of ridigbody in pixels from left up corner
 	float mass;						// mass of the object (if not physical doesnt matter)
 public:
-	Ridigbody() { position = pos(); mass = 1; _isPhysical = 1; }
+	bool isStatic;					// weather can object move or not
+	Ridigbody();
 	Ridigbody(pos _pos, float _mass) {
 		position = _pos;
 		mass = _mass;

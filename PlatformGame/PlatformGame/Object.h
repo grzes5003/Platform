@@ -5,15 +5,12 @@
 class Object : public virtual Ridigbody, public virtual Physic
 {
 	sf::CircleShape *shapeptr;
-	float mass;
+	//float mass;										// niepotrzebne i suppose
 public:
+	void drawObj(sf::RenderWindow &window);				// draw an object in window
 	void moveObject( pos newpos );						// move to position in pixels
 	pos getPosition();									// get positoin of obj in pixels
-	Object() { 
-		shapeptr = new sf::CircleShape( 80.f );
-		shapeptr->setFillColor( sf::Color::Red );
-		shapeptr->setPosition(position.x, position.y);
-	}
+	Object();
 	~Object();
 };
 

@@ -16,7 +16,7 @@ void GameManager::gameLoop() {
 		}
 
 		window.clear();
-		
+		obj1.drawObj( window );
 		window.display();
 	}
 }

@@ -6,8 +6,8 @@
 class Physic
 {
 
-public:
 	static float gravity();
+public:
 	Physic();
 	~Physic();
 };
