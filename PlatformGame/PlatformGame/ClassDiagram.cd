@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Physic">
-    <Position X="6" Y="3.5" Width="1.5" />
+    <Position X="6.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAAAAAABAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gAAAAAgAAAAAAAAAAAAABAAAAYAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Physic.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -24,7 +24,7 @@
   <Class Name="Ridigbody">
     <Position X="2.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAIAAAAQAAAAIAAAAAAAAAAAAAAAIAAAACA=</HashCode>
+      <HashCode>AIAAAAAAAAIAAAAQAAAAIAAAAAAACAAAAAQAIAAAACA=</HashCode>
       <FileName>Ridigbody.h</FileName>
     </TypeIdentifier>
   </Class>

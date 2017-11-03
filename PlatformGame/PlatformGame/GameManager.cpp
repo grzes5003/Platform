@@ -3,8 +3,10 @@
 
 
 void GameManager::gameLoop() {
-	
-	sf::RenderWindow window( sf::VideoMode( 200, 200 ), "Game" );
+	sf::Clock Clock;
+	float timeElapsed = 0;								// time of one frame
+
+	sf::RenderWindow window( sf::VideoMode( 200, 900 ), "Game" );
 
 	Object obj1;
 
@@ -16,8 +18,11 @@ void GameManager::gameLoop() {
 		}
 
 		window.clear();
+		Physic::simulate( obj1, timeElapsed );
 		obj1.drawObj( window );
 		window.display();
+		timeElapsed = Clock.getElapsedTime().asMilliseconds();
+		Clock.restart();
 	}
 }
 

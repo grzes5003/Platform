@@ -1,8 +1,8 @@
 #pragma once
-#include "Physic.h"
+//#include "Physic.h"
 #include "Ridigbody.h"
 
-class Object : public virtual Ridigbody, public virtual Physic
+class Object : public virtual Ridigbody
 {
 	sf::CircleShape *shapeptr;
 	//float mass;										// niepotrzebne i suppose

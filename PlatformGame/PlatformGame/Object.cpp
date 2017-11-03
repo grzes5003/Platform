@@ -3,10 +3,12 @@
 
 
 void Object::drawObj( sf::RenderWindow & window ) {
+	shapeptr->move( -sf::Vector2f( position.x, position.y ) );		// make shure position is most recent
 	window.draw( *shapeptr );
 }
 
 void Object::moveObject( pos newpos ) {
+	position = newpos;
 }
 
 pos Object::getPosition() {
