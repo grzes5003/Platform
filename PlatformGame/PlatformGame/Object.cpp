@@ -20,22 +20,25 @@ sf::Vector2f Object::getPosition() {
 }
 
 Object::Object() {
-	shapeptr = new sf::RectangleShape( sf::Vector2f( 50, 50 ) );			/// make for test purp 
+	shapeptr = new sf::RectangleShape( sf::Vector2f( 50, 50 ) );			/// for player
 	shapeptr->setFillColor( sf::Color::Red );
 	shapeptr->setPosition( position.x, position.y );
+	isCollieded = false;
 }
 
 Object::Object( sf::RectangleShape sptr ) {									/// doesnt work for some reason
 	shapeptr = &sptr;			
+	isCollieded = false;
 }
 
-Object::Object( sf::Vector2f sizee, sf::Color color, sf::Vector2f pos, bool isStat, bool isPhy ) {
+Object::Object( sf::Vector2f sizee, sf::Color color, sf::Vector2f pos, bool isStat, bool isPhy ) {	/// for other obj in game
 	shapeptr = new sf::RectangleShape( sizee );
 	shapeptr->setFillColor( color );
 	shapeptr->setPosition( pos );
 	position = pos;
 	isStatic = isStat;
 	_isPhysical = isPhy;
+	isCollieded = false;
 }
 
 

@@ -10,7 +10,7 @@ const sf::Vector2f Gravity( 0, -10 );
 class Physic
 {
 	
-	static sf::Vector2f gravity(sf::Vector2f &velocity, float dtime);
+	static sf::Vector2f gravity( Object & obj, sf::Vector2f &velocity, float dtime);
 public:
 	
 	static void jump( Object & obj );

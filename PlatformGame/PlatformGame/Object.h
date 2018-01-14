@@ -10,6 +10,8 @@ class Object : public virtual Ridigbody
 	sf::RectangleShape *shapeptr;
 	//float mass;										// niepotrzebne i suppose
 public:
+	bool isCollieded;									// (is it possible to jump)
+
 	void drawObj(sf::RenderWindow &window);				// draw an object in window
 	void changePosition( sf::Vector2f newpos );						// move to position in pixels
 	sf::Vector2f getSize();

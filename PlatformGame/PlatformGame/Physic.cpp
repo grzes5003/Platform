@@ -2,8 +2,9 @@
 
 
 
-sf::Vector2f Physic::gravity(sf::Vector2f &velocity, float dtime ) {
-	velocity += Gravity*dtime;
+sf::Vector2f Physic::gravity( Object & obj, sf::Vector2f &velocity, float dtime ) {
+	if(!obj.isCollieded )
+		velocity += Gravity*dtime;
 	return velocity;
 }
 
@@ -22,8 +23,8 @@ sf::Vector2f Physic::updatePosition( Object & obj, float dtime ) {
 void Physic::simulate( Object & obj, std::vector<Object>& obj_tab, float dtime, int dontCheckNumb ) {
 	if(obj.isPhysical()) {
 		if( !obj.isStatic ) {
-			gravity( obj.velocity, dtime );
 			collision( obj, obj_tab, dtime );
+			gravity( obj, obj.velocity, dtime );
 		}
 		//
 	}
@@ -49,6 +50,8 @@ int Physic::collision( Object & obj, std::vector<Object>& obj_tab, float dtime, 
 
 	Object *tempObj;
 
+	bool isCollCheck = false;
+
 	for( unsigned int i = 0; i < obj_tab.size(); i++ ) {	// checking all obj at the scene
 		if( dontCheckNumb != i ) {							// check all obj from list but not itself
 			tempObj = &obj_tab.at( i );
@@ -59,11 +62,20 @@ int Physic::collision( Object & obj, std::vector<Object>& obj_tab, float dtime, 
 				rightSide >= (tempObj->getPosition().x - tempObj->getSize().x - obj.getSize().x)
 				) 
 			{ //collision happend
-				obj.velocity = sf::Vector2f( 0, 0 );
+				if(!obj.isCollieded )
+					obj.velocity = sf::Vector2f( 0, 0 );
+				isCollCheck = true;
 				//obj.isStatic = 1;
-			}		
+			}
 		}
 	}
+
+	// check if player touches any platform - if he can jump
+	if( isCollCheck )
+		obj.isCollieded = true;
+	else
+		obj.isCollieded = false;
+
 	return 0;
 }
 

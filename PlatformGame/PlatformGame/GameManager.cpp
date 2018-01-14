@@ -11,7 +11,8 @@ void GameManager::gameLoop() {
 	Object player1;
 	
 	std::vector<Object> obj_tab;
-	obj_tab.push_back(Object( sf::Vector2f( 500, 20 ), sf::Color::Blue, sf::Vector2f( -10, -800 ), 1, 1 ));
+	obj_tab.push_back(Object( sf::Vector2f( 200, 20 ), sf::Color::Blue, sf::Vector2f( -10, -800 ), 1, 1 ));
+	obj_tab.push_back( Object( sf::Vector2f( 100, 20 ), sf::Color::Blue, sf::Vector2f( -300, -700 ), 1, 1 ) );
 
 	/////////////////////////////////////////////
 	while( window.isOpen() ) {
@@ -29,6 +30,10 @@ void GameManager::gameLoop() {
 		}
 		else if( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) ) {
 			player1.changePosition( sf::Vector2f( player1.getPosition().x - MOVE_SPEED * fdeltaTime * SPEED, player1.getPosition().y ) );
+		}
+		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) ) {
+			if( player1.isCollieded )
+				player1.velocity += sf::Vector2f( 0, 2 );
 		}
 
 		///update all obj
