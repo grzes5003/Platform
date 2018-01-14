@@ -44,7 +44,7 @@ int Physic::collision( Object & obj, std::vector<Object>& obj_tab, float dtime, 
 	
 	int leftSide =	obj.getPosition().x;
 	int topSide  =	obj.getPosition().y;
-	int downSide =	obj.getPosition().y + obj.getSize().y;
+	int downSide =	obj.getPosition().y - obj.getSize().y;
 	int rightSide=  obj.getPosition().x + obj.getSize().x;
 
 	Object *tempObj;
@@ -53,9 +53,9 @@ int Physic::collision( Object & obj, std::vector<Object>& obj_tab, float dtime, 
 		if( dontCheckNumb != i ) {							// check all obj from list but not itself
 			tempObj = &obj_tab.at( i );
 			//
-			if( downSide >= tempObj->getPosition().y &&
-				topSide <= (tempObj->getPosition().y + tempObj->getSize().y) &&
-				leftSide >= tempObj->getPosition().x &&
+			if( downSide  <= (tempObj->getPosition().y ) &&
+				topSide   >=  tempObj->getPosition().y - tempObj->getSize().y&&
+				leftSide  >=  tempObj->getPosition().x &&
 				rightSide <= (tempObj->getPosition().x + tempObj->getSize().x)
 				) 
 			{ //collision happend
