@@ -14,10 +14,27 @@ void Physic::jump( Object & obj ) {
 
 sf::Vector2f Physic::updatePosition( Object & obj, float dtime ) {
 	sf::Vector2f temp = obj.getPosition();
+	if( obj.velocity.y > 5 )		// if player has too high jump
+		obj.velocity.y = 2;
+	
+	
 	temp += obj.velocity * (dtime * SPEED);
+
+	if( temp.y < -900 ) {			// if player goes out of screen reset 
+		temp = sf::Vector2f( 0, 0 );
+	}
 
 	obj.changePosition( temp );
 	return temp;
+}
+
+sf::Vector2f Physic::updatePositionToCamera( Object & obj, sf::Vector2f & cameraOffset, float dtime) {
+	if( !obj.isPlayer ) {
+		sf::Vector2f temp = obj.getPosition();
+		temp += cameraOffset;
+		obj.changePosition( temp );
+	}
+	return sf::Vector2f();
 }
 
 void Physic::simulate( Object & obj, std::vector<Object>& obj_tab, float dtime, int dontCheckNumb ) {
@@ -29,7 +46,7 @@ void Physic::simulate( Object & obj, std::vector<Object>& obj_tab, float dtime, 
 		//
 	}
 	//update obj
-	updatePosition( obj, dtime );
+	updatePosition( obj, dtime);
 }
 
 int Physic::collision( Object & obj, std::vector<Object>& obj_tab, float dtime, int dontCheckNumb ) {

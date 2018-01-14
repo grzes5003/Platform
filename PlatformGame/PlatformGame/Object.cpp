@@ -24,14 +24,16 @@ Object::Object() {
 	shapeptr->setFillColor( sf::Color::Red );
 	shapeptr->setPosition( position.x, position.y );
 	isCollieded = false;
+	isPlayer = 1;
 }
 
 Object::Object( sf::RectangleShape sptr ) {									/// doesnt work for some reason
 	shapeptr = &sptr;			
 	isCollieded = false;
+	isPlayer = 0;
 }
 
-Object::Object( sf::Vector2f sizee, sf::Color color, sf::Vector2f pos, bool isStat, bool isPhy ) {	/// for other obj in game
+Object::Object( sf::Vector2f sizee, sf::Color color, sf::Vector2f pos, bool isStat, bool isPhy, bool isPlay ) {	/// for other obj in game
 	shapeptr = new sf::RectangleShape( sizee );
 	shapeptr->setFillColor( color );
 	shapeptr->setPosition( pos );
@@ -39,6 +41,7 @@ Object::Object( sf::Vector2f sizee, sf::Color color, sf::Vector2f pos, bool isSt
 	isStatic = isStat;
 	_isPhysical = isPhy;
 	isCollieded = false;
+	isPlayer = isPlay;
 }
 
 
