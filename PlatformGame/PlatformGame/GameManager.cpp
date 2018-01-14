@@ -6,12 +6,12 @@ void GameManager::gameLoop() {
 	sf::Clock Clock;
 	float fdeltaTime = 0;								// time of one frame
 
-	sf::RenderWindow window( sf::VideoMode( 200, 900 ), "Game" );
+	sf::RenderWindow window( sf::VideoMode( 900, 900 ), "Game" );
 	/////////////////////////////////////////////
 	Object player1;
 	
 	std::vector<Object> obj_tab;
-	obj_tab.push_back(Object( sf::Vector2f( 100, 20 ), sf::Color::Blue, sf::Vector2f( 0, -800 ), 1, 1 ));
+	obj_tab.push_back(Object( sf::Vector2f( 500, 20 ), sf::Color::Blue, sf::Vector2f( -10, -800 ), 1, 1 ));
 
 	/////////////////////////////////////////////
 	while( window.isOpen() ) {
@@ -21,6 +21,14 @@ void GameManager::gameLoop() {
 		while( window.pollEvent( event ) ) {
 			if( event.type == sf::Event::Closed )
 				window.close();
+		}
+
+		/// keyboard input
+		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) ) {
+			player1.changePosition( sf::Vector2f( player1.getPosition().x + MOVE_SPEED * fdeltaTime * SPEED, player1.getPosition().y ) );
+		}
+		else if( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) ) {
+			player1.changePosition( sf::Vector2f( player1.getPosition().x - MOVE_SPEED * fdeltaTime * SPEED, player1.getPosition().y ) );
 		}
 
 		///update all obj

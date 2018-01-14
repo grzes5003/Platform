@@ -45,7 +45,7 @@ int Physic::collision( Object & obj, std::vector<Object>& obj_tab, float dtime, 
 	int leftSide =	obj.getPosition().x;
 	int topSide  =	obj.getPosition().y;
 	int downSide =	obj.getPosition().y - obj.getSize().y;
-	int rightSide=  obj.getPosition().x + obj.getSize().x;
+	int rightSide=  obj.getPosition().x - obj.getSize().x;
 
 	Object *tempObj;
 
@@ -54,13 +54,13 @@ int Physic::collision( Object & obj, std::vector<Object>& obj_tab, float dtime, 
 			tempObj = &obj_tab.at( i );
 			//
 			if( downSide  <= (tempObj->getPosition().y ) &&
-				topSide   >=  tempObj->getPosition().y - tempObj->getSize().y&&
-				leftSide  >=  tempObj->getPosition().x &&
-				rightSide <= (tempObj->getPosition().x + tempObj->getSize().x)
+				topSide   >= (tempObj->getPosition().y - tempObj->getSize().y) &&
+				leftSide  <= (tempObj->getPosition().x + obj.getSize().x) &&
+				rightSide >= (tempObj->getPosition().x - tempObj->getSize().x - obj.getSize().x)
 				) 
 			{ //collision happend
 				obj.velocity = sf::Vector2f( 0, 0 );
-				obj.isStatic = 1;
+				//obj.isStatic = 1;
 			}		
 		}
 	}

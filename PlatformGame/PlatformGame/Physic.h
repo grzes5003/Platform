@@ -1,6 +1,7 @@
 #pragma once
 
 #define SPEED 200				// one pixel is x cm IRL
+#define MOVE_SPEED 2
 #define PI 3.14f
 #include "pos.h"
 #include "Object.h"
