@@ -2,22 +2,35 @@
 
 
 
-float Physic::gravity(sf::Vector2f &velocity, float time ) {
-	if( time != 0 ) {
-		velocity.y -= (float)(GRAVITY / (time))*SCALE;
-	}
-	return 0.0f;
+sf::Vector2f Physic::gravity(sf::Vector2f &velocity, float dtime ) {
+	velocity += Gravity*dtime;
+	return velocity;
 }
 
-void Physic::changePosition( Object & obj ) {
-	obj.moveObject(pos(obj.getPosition().x + obj.velocity.x, obj.getPosition().y + obj.velocity.y ));
+void Physic::jump( Object & obj ) {
+
 }
 
-void Physic::simulate( Object & obj, float time) {
-	if( obj.isPhysical() ) {
-		gravity( obj.velocity, time );
-		changePosition( obj );
+sf::Vector2f Physic::updatePosition( Object & obj, float dtime ) {
+	sf::Vector2f temp = obj.getPosition();
+	temp += obj.velocity * dtime;
+
+	obj.changePosition( temp );
+	return temp;
+}
+
+void Physic::simulate( Object & obj, float dtime) {
+	if(obj.isPhysical()) {
+		if( !obj.isStatic )
+			gravity( obj.velocity, dtime );
+		//
 	}
+	//update obj
+	updatePosition( obj, dtime );
+}
+
+int Physic::collision( Object & obj, std::vector<Object>& obj_tab, float dtime ) {
+	return 0;
 }
 
 Physic::Physic() {

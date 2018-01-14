@@ -6,13 +6,13 @@ class Ridigbody
 {
 protected:
 	bool _isPhysical;				// if physical attributes 1, otherw 0
-	pos position;					// position of ridigbody in pixels from left up corner
+	sf::Vector2f position;					// position of ridigbody in pixels from left up corner
 	float mass;						// mass of the object (if not physical doesnt matter)
 public:
 	sf::Vector2f velocity;
 	bool isStatic;					// weather can object move or not
 	Ridigbody();
-	Ridigbody(pos _pos, float _mass) {
+	Ridigbody(sf::Vector2f _pos, float _mass) {
 		position = _pos;
 		mass = _mass;
 		isStatic = false;

@@ -3,7 +3,7 @@
 
 
 Ridigbody::Ridigbody() {
-	position = pos(); mass = 1; _isPhysical = 1;
+	position = sf::Vector2f(); mass = 1; _isPhysical = 1;
 	isStatic = false;
 	velocity = sf::Vector2f( 0, 0 );
 }
