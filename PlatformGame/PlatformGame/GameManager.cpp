@@ -11,7 +11,7 @@ void GameManager::gameLoop() {
 	Object player1;
 	
 	std::vector<Object> obj_tab;
-	obj_tab.push_back(Object( sf::Vector2f( 100, 20 ), sf::Color::Blue, sf::Vector2f( 0, 0 ), 1, 1 ));
+	obj_tab.push_back(Object( sf::Vector2f( 100, 20 ), sf::Color::Blue, sf::Vector2f( 0, -800 ), 1, 1 ));
 
 	/////////////////////////////////////////////
 	while( window.isOpen() ) {
@@ -25,9 +25,9 @@ void GameManager::gameLoop() {
 
 		///update all obj
 		{
-			Physic::simulate( player1, fdeltaTime );
+			Physic::simulate( player1, obj_tab, fdeltaTime );
 			for( unsigned int i = 0; i < obj_tab.size(); i++ ) {
-				Physic::simulate( obj_tab.at( i ), fdeltaTime );
+				Physic::simulate( obj_tab.at( i ), obj_tab, fdeltaTime, i );
 			}
 		}
 		

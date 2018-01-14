@@ -3,12 +3,16 @@
 
 
 void Object::drawObj( sf::RenderWindow & window ) {
-	shapeptr->move( -sf::Vector2f( position.x, position.y ) );		// make sure position is most recent
+	shapeptr->setPosition( -sf::Vector2f( position.x, position.y ) );		// make sure position is most recent
 	window.draw( *shapeptr );
 }
 
 void Object::changePosition( sf::Vector2f newpos ) {
 	position = newpos;
+}
+
+sf::Vector2f Object::getSize() {
+	return shapeptr->getSize();
 }
 
 sf::Vector2f Object::getPosition() {
@@ -25,10 +29,11 @@ Object::Object( sf::RectangleShape sptr ) {									/// doesnt work for some rea
 	shapeptr = &sptr;			
 }
 
-Object::Object( sf::Vector2f sizee, sf::Color color, sf::Vector2f position, bool isStat, bool isPhy ) {
+Object::Object( sf::Vector2f sizee, sf::Color color, sf::Vector2f pos, bool isStat, bool isPhy ) {
 	shapeptr = new sf::RectangleShape( sizee );
 	shapeptr->setFillColor( color );
-	shapeptr->setPosition( position );
+	shapeptr->setPosition( pos );
+	position = pos;
 	isStatic = isStat;
 	_isPhysical = isPhy;
 }
