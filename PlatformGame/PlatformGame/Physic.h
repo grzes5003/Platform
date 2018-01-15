@@ -4,6 +4,7 @@
 #define MOVE_SPEED 2
 #define SPEED_BOOST 2.5
 #define PI 3.14f
+#define SEED 2987629046578341058340754
 #include "pos.h"
 #include "Object.h"
 const sf::Vector2f Gravity( 0, -10 );

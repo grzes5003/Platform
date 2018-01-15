@@ -1,5 +1,6 @@
 #include "GameManager.h"
-
+#include <ctime>
+#include <cstdlib>
 
 #define SCREEN_WIDTH	900
 #define SCREEN_HEIGHT	900
@@ -13,10 +14,21 @@ void GameManager::gameLoop() {
 	Object player1;
 	
 	std::vector<Object> obj_tab;
-	obj_tab.push_back(Object( sf::Vector2f( 200, 20 ), sf::Color::Blue, sf::Vector2f( -10, -800 ), 1, 1, 0 ));
+	obj_tab.push_back(Object( sf::Vector2f( 2000, 20 ), sf::Color::Blue, sf::Vector2f( -10, -800 ), 1, 1, 0 ));
 	obj_tab.push_back( Object( sf::Vector2f( 100, 20 ), sf::Color::Blue, sf::Vector2f( -300, -700 ), 1, 1, 0 ) );
-	obj_tab.push_back( Object( sf::Vector2f( 100, 20 ), sf::Color::Blue, sf::Vector2f( -450, -400 ), 1, 1, 0 ) );
-	obj_tab.push_back( Object( sf::Vector2f( 100, 20 ), sf::Color::Blue, sf::Vector2f( -700, -500 ), 1, 1, 0 ) );
+
+	/// level generator
+	int startpnt = -400; int temp_offset;
+	for( unsigned int i = 0; i < 30; i++ ) {
+		srand( time( NULL ) + i);
+		temp_offset = -200 * i;								// if written below doesnt work
+		obj_tab.push_back( Object(
+			sf::Vector2f( (( rand() % 2 ) == 0 ? -1 : 1)*(20)+100, 20 ),
+			sf::Color::Blue,
+			sf::Vector2f( (( rand() % 2 ) == 0 ? -1 : 1)*( ( rand() % 100 ) + 1 ) + startpnt + temp_offset,
+						((rand() % 2) == 0 ? -1 : 1)*((rand() % 200) + 1) - SCREEN_HEIGHT/2 )
+			, 1, 1, 0 ) );
+	}
 
 	/////////////////////////////////////////////
 	bool isSpacecClicked = false;
