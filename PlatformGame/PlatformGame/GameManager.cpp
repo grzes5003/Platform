@@ -4,39 +4,56 @@
 
 
 
+void GameManager::generateLvl( std::vector<Object>& tab ) {
+	tab.clear();			//make sure no trash in tab from last lvl
+	
+	int temp_offset;
+	int startpnt = -400;
+
+	tab.push_back( Object( sf::Vector2f( 200, 20 ), sf::Color::Blue, sf::Vector2f( -10, -800 ), 1, 1, 0 ) );
+	tab.push_back( Object( sf::Vector2f( 100, 20 ), sf::Color::Blue, sf::Vector2f( -300, -700 ), 1, 1, 0 ) );
+
+	for( unsigned int i = 0; i < 30; i++ ) {
+		srand( time( NULL ) + i );
+		temp_offset = -200 * i;								// if written below doesnt work
+		tab.push_back( Object(
+			sf::Vector2f( ((rand() % 2) == 0 ? -1 : 1)*(20) + 100, 20 ),
+			sf::Color::Blue,
+			sf::Vector2f( ((rand() % 2) == 0 ? -1 : 1)*((rand() % 100) + 1) + startpnt + temp_offset,
+			((rand() % 2) == 0 ? -1 : 1)*((rand() % 200) + 1) - SCREEN_HEIGHT / 2 )
+			, 1, 1, 0 ) );
+	}
+}
+
+void GameManager::playerDead( Object & player, Camera & camera, std::vector<Object> & tab ) {
+	// player points
+	// reset camera
+	camera.resetCamera( player, tab );
+	// generate new world
+	generateLvl( tab );
+}
+
 void GameManager::gameLoop() {
-	sf::Clock Clock;
-	float fdeltaTime = 0;								// time of one frame
 
 	sf::RenderWindow window( sf::VideoMode( SCREEN_WIDTH, SCREEN_HEIGHT ), "Game" );
 	/////////////////////////////////////////////
+	
+	sf::Clock Clock;
+	float fdeltaTime = 0;								// time of one frame
+	
 	Object player1;
 	Camera camera1;
 
+	///////////////////////////////////////////// generate lvl
 	std::vector<Object> obj_tab;
-	obj_tab.push_back(Object( sf::Vector2f( 2000, 20 ), sf::Color::Blue, sf::Vector2f( -10, -800 ), 1, 1, 0 ));
-	obj_tab.push_back( Object( sf::Vector2f( 100, 20 ), sf::Color::Blue, sf::Vector2f( -300, -700 ), 1, 1, 0 ) );
-
-	/// level generator
-	int startpnt = -400; int temp_offset;
-	for( unsigned int i = 0; i < 30; i++ ) {
-		srand( time( NULL ) + i);
-		temp_offset = -200 * i;								// if written below doesnt work
-		obj_tab.push_back( Object(
-			sf::Vector2f( (( rand() % 2 ) == 0 ? -1 : 1)*(20)+100, 20 ),
-			sf::Color::Blue,
-			sf::Vector2f( (( rand() % 2 ) == 0 ? -1 : 1)*( ( rand() % 100 ) + 1 ) + startpnt + temp_offset,
-						((rand() % 2) == 0 ? -1 : 1)*((rand() % 200) + 1) - SCREEN_HEIGHT/2 )
-			, 1, 1, 0 ) );
-	}
+	generateLvl( obj_tab );
 
 	/////////////////////////////////////////////
 	bool isSpacecClicked = false;
 	
-	//sf::Vector2f cameraOffset( 0, 0 );
-	sf::Vector2f priviousPlayerPos( player1.getPosition() );	// needed
+	sf::Vector2f priviousPlayerPos( player1.getPosition() );	// to make camera motion (deltaPosition)
 	
-	/////////////////////////////////////////////
+	///////////////////////////////////////////// game loop
 	while( window.isOpen() ) {
 		
 		Clock.restart();
@@ -48,15 +65,9 @@ void GameManager::gameLoop() {
 
 		/// keyboard input
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) || sf::Keyboard::isKeyPressed( sf::Keyboard::A ) ) {
-			//if( sf::Keyboard::isKeyPressed( sf::Keyboard::LShift ) && player1.isCollieded )
-			//	player1.changePosition( sf::Vector2f( player1.getPosition().x + MOVE_SPEED * fdeltaTime * SPEED * SPEED_BOOST, player1.getPosition().y ) );
-			//else
 				player1.changePosition( sf::Vector2f( player1.getPosition().x + MOVE_SPEED * fdeltaTime * SPEED, player1.getPosition().y ) );
 		}
 		else if( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) || sf::Keyboard::isKeyPressed( sf::Keyboard::D ) ) {
-			//if( sf::Keyboard::isKeyPressed( sf::Keyboard::LShift ) && player1.isCollieded )
-			//	player1.changePosition( sf::Vector2f( player1.getPosition().x - MOVE_SPEED * fdeltaTime * SPEED * SPEED_BOOST, player1.getPosition().y ) );
-			//else
 				player1.changePosition( sf::Vector2f( player1.getPosition().x - MOVE_SPEED * fdeltaTime * SPEED, player1.getPosition().y ) );
 		}
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) || sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) ) {
@@ -67,7 +78,9 @@ void GameManager::gameLoop() {
 		else {
 			isSpacecClicked = false;
 		}
-		///update all obj
+		
+		////////////////////////////////////////////////////// update all static obj
+		
 		{
 			Physic::simulate( player1, obj_tab, fdeltaTime );
 			for( unsigned int i = 0; i < obj_tab.size(); i++ ) {
@@ -75,26 +88,18 @@ void GameManager::gameLoop() {
 			}
 		}
 		
-		/// change camera position
-		/*{
-			if( player1.getPosition().x < (-SCREEN_WIDTH / 2 + 0.1*SCREEN_WIDTH) ) {
-				cameraOffset.x = (priviousPlayerPos.x - player1.getPosition().x);
-			}
-			else
-				cameraOffset.x = 0;
-			for( unsigned int i = 0; i < obj_tab.size(); i++ ) {
-				Physic::updatePositionToCamera( obj_tab.at( i ), cameraOffset, fdeltaTime );
-			}
-			priviousPlayerPos.x = player1.getPosition().x;
-		}*/
+		/////////////////////////////////////////////////////// change camera position
 
 		camera1.updatePosition( player1, obj_tab, sf::Vector2f( -(priviousPlayerPos.x - player1.getPosition().x), 0 ) );
 
-		priviousPlayerPos.x = player1.getPosition().x;		// update player position
+		priviousPlayerPos.x = player1.getPosition().x;		 // update player position
+		/////////////////////////////////////////////////////// check player status (if he falls)
+		if( player1.getPosition().y < -SCREEN_HEIGHT ) {
+			playerDead( player1, camera1, obj_tab );
+		}
 
-		///
+		/////////////////////////////////////////////////////// draw all obj
 		window.clear();
-		///draw all obj
 		{
 			player1.drawObj( window );
 			for( unsigned int i = 0; i < obj_tab.size(); i++ ) {

@@ -20,22 +20,14 @@ sf::Vector2f Physic::updatePosition( Object & obj, float dtime ) {
 	
 	temp += obj.velocity * (dtime * SPEED);
 
-	if( temp.y < -900 ) {			// if player goes out of screen reset 
-		temp = sf::Vector2f( 0, 0 );
-	}
+	//if( temp.y < -900 ) {			// if player goes out of screen reset 
+	//	temp = sf::Vector2f( 0, 0 );
+	//}
 
 	obj.changePosition( temp );
 	return temp;
 }
 
-sf::Vector2f Physic::updatePositionToCamera( Object & obj, sf::Vector2f & cameraOffset, float dtime) {
-	if( !obj.isPlayer ) {
-		sf::Vector2f temp = obj.getPosition();
-		temp += cameraOffset;
-		obj.changePosition( temp );
-	}
-	return sf::Vector2f();
-}
 
 void Physic::simulate( Object & obj, std::vector<Object>& obj_tab, float dtime, int dontCheckNumb ) {
 	if(obj.isPhysical()) {

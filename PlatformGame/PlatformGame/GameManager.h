@@ -7,9 +7,9 @@
 
 class GameManager
 {
-public:
-
-	
+	void generateLvl( std::vector<Object> & tab);
+	void playerDead( Object & player, Camera & camera, std::vector<Object> & tab );
+public:	
 	void gameLoop();
 	GameManager();
 	~GameManager();
