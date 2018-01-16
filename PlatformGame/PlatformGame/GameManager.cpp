@@ -2,8 +2,7 @@
 #include <ctime>
 #include <cstdlib>
 
-#define SCREEN_WIDTH	900
-#define SCREEN_HEIGHT	900
+
 
 void GameManager::gameLoop() {
 	sf::Clock Clock;
@@ -12,7 +11,8 @@ void GameManager::gameLoop() {
 	sf::RenderWindow window( sf::VideoMode( SCREEN_WIDTH, SCREEN_HEIGHT ), "Game" );
 	/////////////////////////////////////////////
 	Object player1;
-	
+	Camera camera1;
+
 	std::vector<Object> obj_tab;
 	obj_tab.push_back(Object( sf::Vector2f( 2000, 20 ), sf::Color::Blue, sf::Vector2f( -10, -800 ), 1, 1, 0 ));
 	obj_tab.push_back( Object( sf::Vector2f( 100, 20 ), sf::Color::Blue, sf::Vector2f( -300, -700 ), 1, 1, 0 ) );
@@ -32,8 +32,10 @@ void GameManager::gameLoop() {
 
 	/////////////////////////////////////////////
 	bool isSpacecClicked = false;
-	sf::Vector2f cameraOffset( 0, 0 );
-	sf::Vector2f priviousPlayerPos( player1.getPosition() );
+	
+	//sf::Vector2f cameraOffset( 0, 0 );
+	sf::Vector2f priviousPlayerPos( player1.getPosition() );	// needed
+	
 	/////////////////////////////////////////////
 	while( window.isOpen() ) {
 		
@@ -74,7 +76,7 @@ void GameManager::gameLoop() {
 		}
 		
 		/// change camera position
-		{
+		/*{
 			if( player1.getPosition().x < (-SCREEN_WIDTH / 2 + 0.1*SCREEN_WIDTH) ) {
 				cameraOffset.x = (priviousPlayerPos.x - player1.getPosition().x);
 			}
@@ -84,7 +86,12 @@ void GameManager::gameLoop() {
 				Physic::updatePositionToCamera( obj_tab.at( i ), cameraOffset, fdeltaTime );
 			}
 			priviousPlayerPos.x = player1.getPosition().x;
-		}
+		}*/
+
+		camera1.updatePosition( player1, obj_tab, sf::Vector2f( -(priviousPlayerPos.x - player1.getPosition().x), 0 ) );
+
+		priviousPlayerPos.x = player1.getPosition().x;		// update player position
+
 		///
 		window.clear();
 		///draw all obj
