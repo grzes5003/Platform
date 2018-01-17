@@ -20,10 +20,6 @@ sf::Vector2f Physic::updatePosition( Object & obj, float dtime ) {
 	
 	temp += obj.velocity * (dtime * SPEED);
 
-	//if( temp.y < -900 ) {			// if player goes out of screen reset 
-	//	temp = sf::Vector2f( 0, 0 );
-	//}
-
 	obj.changePosition( temp );
 	return temp;
 }

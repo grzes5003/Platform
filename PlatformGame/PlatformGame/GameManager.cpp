@@ -41,6 +41,9 @@ void GameManager::gameLoop() {
 	sf::Clock Clock;
 	float fdeltaTime = 0;								// time of one frame
 	
+	int currentAnim = 0;								// var for animation
+	bool faceRight = true;
+
 	Object player1;
 	Camera camera1;
 
@@ -67,20 +70,32 @@ void GameManager::gameLoop() {
 
 		/// keyboard input
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) || sf::Keyboard::isKeyPressed( sf::Keyboard::A ) ) {
+				faceRight = false;
+				currentAnim = 2;
 				player1.changePosition( sf::Vector2f( player1.getPosition().x + MOVE_SPEED * fdeltaTime * SPEED, player1.getPosition().y ) );
 		}
 		else if( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) || sf::Keyboard::isKeyPressed( sf::Keyboard::D ) ) {
+				faceRight = true;
+				currentAnim = 2;
 				player1.changePosition( sf::Vector2f( player1.getPosition().x - MOVE_SPEED * fdeltaTime * SPEED, player1.getPosition().y ) );
 		}
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) || sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) ) {
-			if( player1.isCollieded && !isSpacecClicked )
+			if( player1.isCollieded && !isSpacecClicked ) {
 				player1.velocity += sf::Vector2f( 0, 5 );
+				currentAnim = 1;
+			}
 			isSpacecClicked = true;
 		}
 		else {
 			isSpacecClicked = false;
 		}
-		
+		////////////////////////////////////////////////////// idle state
+		if( !sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) && !sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) &&
+			!sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) && !sf::Keyboard::isKeyPressed( sf::Keyboard::A ) &&
+			!sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) && !sf::Keyboard::isKeyPressed( sf::Keyboard::D ) ) {
+			currentAnim = 0;
+		}
+
 		////////////////////////////////////////////////////// update all static obj
 		
 		{
@@ -101,7 +116,7 @@ void GameManager::gameLoop() {
 		}
 		/////////////////////////////////////////////////////// animate player
 		{
-			player1.updateAnimation( fdeltaTime );
+			player1.updateAnimation( fdeltaTime, currentAnim, faceRight );
 		}
 		/////////////////////////////////////////////////////// draw all obj
 		window.clear();

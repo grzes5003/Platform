@@ -6,11 +6,11 @@ void Object::loadTexture() {
 	currentImage.x = 0;
 	currentImage.y = 0;
 	imageCount.x  = 3;
-	imageCount.y = 1;
+	imageCount.y = 3;
 	switchTime = 0.3f;
 
 	texture = new sf::Texture();
-	texture->loadFromFile( "C://Users/Grzes/Source/Repos/Platform/PlatformGame/Debug/sprites/idle2.png" );
+	texture->loadFromFile( "C://Users/Grzes/Source/Repos/Platform/PlatformGame/Debug/sprites/sprites.png" ); // TODO change to relative dir
 	texture->setSmooth( true );
 
 	shapeptr->setTexture( texture );
@@ -25,9 +25,24 @@ void Object::loadTexture() {
 	shapeptr->setTextureRect( uvRect );
 }
 
-void Object::updateAnimation( float deltaTime ) {
+void Object::updateAnimation( float deltaTime, int animType, bool faceRight ) {
+	//
+	//	0 - idle anim
+	//	1 - jump anim
+	//	2 - run  anim
+	//
 	currentImage.x;
 	deltaFromChange += deltaTime;
+
+	if( animType == 0 ) {
+		currentImage.y = 0;
+	}
+	else if( animType == 1 ) {
+		currentImage.y = 1;
+	}
+	else {
+		currentImage.y = 2;
+	}
 	
 	if( deltaFromChange >= switchTime ) {
 		
@@ -39,8 +54,17 @@ void Object::updateAnimation( float deltaTime ) {
 			currentImage.x = 0;
 		}
 	}
-	uvRect.left = currentImage.x * uvRect.width;
+
 	uvRect.top = currentImage.y * uvRect.height;
+
+	if( faceRight ) {
+		uvRect.left = currentImage.x * uvRect.width;
+		uvRect.width = abs( uvRect.width );
+	}
+	else {
+		uvRect.left = (currentImage.x + 1) * abs(uvRect.width);
+		uvRect.width = -abs( uvRect.width );
+	}
 
 	shapeptr->setTextureRect( uvRect );
 }

@@ -9,7 +9,7 @@ class Object : public virtual Ridigbody
 {
 public:
 	void loadTexture();
-	void updateAnimation( float deltaTime );
+	void updateAnimation( float deltaTime, int animType, bool faceRight );
 private:
 	sf::Vector2u textureSize;
 	sf::Vector2u imageCount;
