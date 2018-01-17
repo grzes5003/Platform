@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "Physic.h"
 #include "Camera.h"
+#include "Dialogue.h"
 
 class GameManager
 {

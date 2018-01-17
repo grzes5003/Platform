@@ -43,9 +43,17 @@ void GameManager::gameLoop() {
 	
 	int currentAnim = 0;								// var for animation
 	bool faceRight = true;
+	
+	bool isStart = true; 
 
 	Object player1;
 	Camera camera1;
+	Dialogue dialogue1;
+
+	sf::String	metaString = "META";
+	sf::Text	metaText;
+	metaText.setFont( dialogue1.font );
+	metaText.setCharacterSize( 30 );
 
 	player1.loadTexture();
 
@@ -60,7 +68,14 @@ void GameManager::gameLoop() {
 	
 	///////////////////////////////////////////// game loop
 	while( window.isOpen() ) {
-		
+
+		///////////////////////////////////////// start of game (start window)
+		if( isStart ) {
+			dialogue1.showDialogue( 0, window );
+			isStart = 0;
+		}
+		/////////////////////////////////////////
+
 		Clock.restart();
 		sf::Event event;
 		while( window.pollEvent( event ) ) {
@@ -110,8 +125,13 @@ void GameManager::gameLoop() {
 		camera1.updatePosition( player1, obj_tab, sf::Vector2f( -(priviousPlayerPos.x - player1.getPosition().x), 0 ) );
 
 		priviousPlayerPos.x = player1.getPosition().x;		 // update player position
-		/////////////////////////////////////////////////////// check player status (if he falls)
+		/////////////////////////////////////////////////////// check player status (if he falls, or wins)
 		if( player1.getPosition().y < -SCREEN_HEIGHT ) {
+			dialogue1.showDialogue( 1, window );
+			playerDead( player1, camera1, obj_tab );
+		}
+		if( player1.getPosition().x <= obj_tab.at( obj_tab.size() - 1 ).getPosition().x ) {
+			dialogue1.showDialogue( 2, window );
 			playerDead( player1, camera1, obj_tab );
 		}
 		/////////////////////////////////////////////////////// animate player
@@ -120,6 +140,11 @@ void GameManager::gameLoop() {
 		}
 		/////////////////////////////////////////////////////// draw all obj
 		window.clear();
+
+		metaText.setPosition( -obj_tab.at( obj_tab.size() - 1 ).getPosition().x,
+			-obj_tab.at( obj_tab.size() - 1 ).getPosition().y + 10 );
+		window.draw( metaText );
+
 		{
 			player1.drawObj( window );
 			for( unsigned int i = 0; i < obj_tab.size(); i++ ) {
