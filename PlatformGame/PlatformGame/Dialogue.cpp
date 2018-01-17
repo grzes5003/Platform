@@ -23,7 +23,7 @@ void Dialogue::showDialogue( int dtype, sf::RenderWindow & window ) {
 }
 
 Dialogue::Dialogue() {
-	font.loadFromFile( "C://Users/Grzes/Source/Repos/Platform/PlatformGame/Debug/sprites/font.otf" );
+	font.loadFromFile( "sprites/font.otf" );
 	fontSize = 50;
 
 	text.setFont( font );

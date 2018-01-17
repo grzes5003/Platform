@@ -35,7 +35,11 @@ void GameManager::playerDead( Object & player, Camera & camera, std::vector<Obje
 
 void GameManager::gameLoop() {
 
-	sf::RenderWindow window( sf::VideoMode( SCREEN_WIDTH, SCREEN_HEIGHT ), "Game" );
+	sf::Image icon;
+	icon.loadFromFile( "sprites/icon.png" );
+
+	sf::RenderWindow window( sf::VideoMode( SCREEN_WIDTH, SCREEN_HEIGHT ), "SesjaWarrior v1.0" );
+	window.setIcon( icon.getSize().x, icon.getSize().y, icon.getPixelsPtr() );
 	/////////////////////////////////////////////
 	
 	sf::Clock Clock;
