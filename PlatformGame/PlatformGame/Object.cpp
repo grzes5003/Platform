@@ -3,15 +3,46 @@
 
 
 void Object::loadTexture() {
+	currentImage.x = 0;
+	currentImage.y = 0;
+	imageCount.x  = 3;
+	imageCount.y = 1;
+	switchTime = 0.3f;
+
 	texture = new sf::Texture();
 	texture->loadFromFile( "C://Users/Grzes/Source/Repos/Platform/PlatformGame/Debug/sprites/idle2.png" );
 	texture->setSmooth( true );
 
 	shapeptr->setTexture( texture );
 
-	textureSize.x /= 3;
+	textureSize = texture->getSize();
+	textureSize.x /= imageCount.x;
+	textureSize.y /= imageCount.y;
+
+	uvRect.width  = textureSize.x;
+	uvRect.height = textureSize.y;
 	
-	shapeptr->setTextureRect( sf::IntRect(0, 0, 60, 100) );
+	shapeptr->setTextureRect( uvRect );
+}
+
+void Object::updateAnimation( float deltaTime ) {
+	currentImage.x;
+	deltaFromChange += deltaTime;
+	
+	if( deltaFromChange >= switchTime ) {
+		
+		deltaFromChange -= switchTime;
+
+		currentImage.x++;
+
+		if( currentImage.x >= imageCount.x ) {
+			currentImage.x = 0;
+		}
+	}
+	uvRect.left = currentImage.x * uvRect.width;
+	uvRect.top = currentImage.y * uvRect.height;
+
+	shapeptr->setTextureRect( uvRect );
 }
 
 void Object::drawObj( sf::RenderWindow & window ) {
@@ -32,7 +63,7 @@ sf::Vector2f Object::getPosition() {
 }
 
 Object::Object() {
-	shapeptr = new sf::RectangleShape( sf::Vector2f( 60, 100 ) );			/// for player
+	shapeptr = new sf::RectangleShape( sf::Vector2f( 80, 100 ) );			/// for player
 	shapeptr->setPosition( position.x, position.y );
 	isCollieded = false;
 	isPlayer = 1;

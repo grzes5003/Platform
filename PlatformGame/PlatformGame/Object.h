@@ -9,8 +9,16 @@ class Object : public virtual Ridigbody
 {
 public:
 	void loadTexture();
+	void updateAnimation( float deltaTime );
 private:
 	sf::Vector2u textureSize;
+	sf::Vector2u imageCount;
+	sf::Vector2u currentImage;
+	
+	sf::IntRect uvRect;
+
+	float deltaFromChange;
+	float switchTime;
 
 	sf::Texture * texture;								// pointer to texture
 	sf::RectangleShape * shapeptr;

@@ -99,7 +99,10 @@ void GameManager::gameLoop() {
 		if( player1.getPosition().y < -SCREEN_HEIGHT ) {
 			playerDead( player1, camera1, obj_tab );
 		}
-
+		/////////////////////////////////////////////////////// animate player
+		{
+			player1.updateAnimation( fdeltaTime );
+		}
 		/////////////////////////////////////////////////////// draw all obj
 		window.clear();
 		{
