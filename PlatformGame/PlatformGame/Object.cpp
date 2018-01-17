@@ -2,6 +2,18 @@
 
 
 
+void Object::loadTexture() {
+	texture = new sf::Texture();
+	texture->loadFromFile( "C://Users/Grzes/Source/Repos/Platform/PlatformGame/Debug/sprites/idle2.png" );
+	texture->setSmooth( true );
+
+	shapeptr->setTexture( texture );
+
+	textureSize.x /= 3;
+	
+	shapeptr->setTextureRect( sf::IntRect(0, 0, 60, 100) );
+}
+
 void Object::drawObj( sf::RenderWindow & window ) {
 	shapeptr->setPosition( -sf::Vector2f( position.x, position.y ) );		// make sure position is most recent
 	window.draw( *shapeptr );
@@ -20,8 +32,7 @@ sf::Vector2f Object::getPosition() {
 }
 
 Object::Object() {
-	shapeptr = new sf::RectangleShape( sf::Vector2f( 50, 50 ) );			/// for player
-	shapeptr->setFillColor( sf::Color::Red );
+	shapeptr = new sf::RectangleShape( sf::Vector2f( 60, 100 ) );			/// for player
 	shapeptr->setPosition( position.x, position.y );
 	isCollieded = false;
 	isPlayer = 1;

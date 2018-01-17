@@ -44,6 +44,8 @@ void GameManager::gameLoop() {
 	Object player1;
 	Camera camera1;
 
+	player1.loadTexture();
+
 	///////////////////////////////////////////// generate lvl
 	std::vector<Object> obj_tab;
 	generateLvl( obj_tab );
