@@ -7,7 +7,21 @@
 
 class Object : public virtual Ridigbody
 {
-	sf::RectangleShape *shapeptr;
+public:
+	void loadTexture();
+	void updateAnimation( float deltaTime, int animType, bool faceRight );
+private:
+	sf::Vector2u textureSize;
+	sf::Vector2u imageCount;
+	sf::Vector2u currentImage;
+	
+	sf::IntRect uvRect;
+
+	float deltaFromChange;
+	float switchTime;
+
+	sf::Texture * texture;								// pointer to texture
+	sf::RectangleShape * shapeptr;
 	//float mass;										// niepotrzebne i suppose
 public:
 	bool isCollieded;									// (is it possible to jump)
