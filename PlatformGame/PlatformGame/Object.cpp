@@ -10,7 +10,7 @@ void Object::loadTexture() {
 	switchTime = 0.3f;
 
 	texture = new sf::Texture();
-	texture->loadFromFile( "C://Users/Grzes/Source/Repos/Platform/PlatformGame/Debug/sprites/sprites.png" ); // TODO change to relative dir
+	texture->loadFromFile( "C://Users/Grzes/Source/Repos/Platform/PlatformGame/Debug/sprites/sprites_final.png" ); // TODO change to relative dir
 	texture->setSmooth( true );
 
 	shapeptr->setTexture( texture );
@@ -87,7 +87,7 @@ sf::Vector2f Object::getPosition() {
 }
 
 Object::Object() {
-	shapeptr = new sf::RectangleShape( sf::Vector2f( 80, 100 ) );			/// for player
+	shapeptr = new sf::RectangleShape( sf::Vector2f( 50, 100 ) );			/// for player
 	shapeptr->setPosition( position.x, position.y );
 	isCollieded = false;
 	isPlayer = 1;
