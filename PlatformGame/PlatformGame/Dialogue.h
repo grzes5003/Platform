@@ -9,7 +9,7 @@ public:
 
 	void showDialogue( int dtype, sf::RenderWindow & window );
 private:
-	sf::String start, restart, win;
+	sf::String start, restart, late, win;
 	int fontSize;
 public:
 	Dialogue();

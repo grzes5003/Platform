@@ -28,14 +28,17 @@ sf::Vector2f Camera::getCurrentOffset() {
 	return currentOffset;
 }
 
-sf::Vector2f Camera::updatePosition( Object & player, std::vector<Object>& tab, sf::Vector2f deltaPlayerX ) {
-	if( abs( player.getPosition().x ) > (currentOffset.x +(SCREEN_WIDTH / 2)) ) {		// if player goes after middle of the start lvl screen
+sf::Vector2f Camera::updatePosition( Object & player, std::vector<Object>& tab, Background & bcg, sf::Vector2f deltaPlayerX ) {
+	if( abs( player.getPosition().x ) > (currentOffset.x +(SCREEN_WIDTH / 2)) && 
+		abs(player.getPosition().x + currentOffset.x) < abs( currentOffset.x + tab.at(tab.size()-1).getPosition().x + SCREEN_WIDTH/2 ) ) {		// if player goes after middle of the start lvl screen
 		// add delta to offset
 		currentOffset += deltaPlayerX;
 		// change everything pos
 		for( unsigned int i = 0; i < tab.size(); i++ ) {
 			tab.at( i ).changePosition( tab.at( i ).getPosition() - deltaPlayerX );
 		}
+		// camera also
+		bcg.animateTextures( deltaPlayerX );
 		// change player pos to privious 
 		player.changePosition( player.getPosition() - deltaPlayerX );
 	}

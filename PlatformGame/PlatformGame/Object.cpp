@@ -10,7 +10,8 @@ void Object::loadTexture() {
 	switchTime = 0.3f;
 
 	texture = new sf::Texture();
-	texture->loadFromFile( "C://Users/Grzes/Source/Repos/Platform/PlatformGame/Debug/sprites/sprites_final.png" ); // TODO change to relative dir
+	//C://Users/Grzes/Source/Repos/Platform/PlatformGame/Debug/
+	texture->loadFromFile( "sprites/sprites_final.png" ); // TODO change to relative dir
 	texture->setSmooth( true );
 
 	shapeptr->setTexture( texture );
