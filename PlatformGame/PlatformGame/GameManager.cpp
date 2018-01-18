@@ -29,8 +29,12 @@ void GameManager::playerDead( Object & player, Camera & camera, std::vector<Obje
 	// player points
 	// reset camera
 	camera.resetCamera( player, tab );
+	// reset bcg
+	bcg1.resetPosition();
 	// generate new world
 	generateLvl( tab );
+	// set lvl distance to bcg class
+	bcg1.setLevelDistance( abs(tab.at( tab.size() - 1 ).getPosition().x) );
 }
 
 void GameManager::gameLoop() {
@@ -46,13 +50,14 @@ void GameManager::gameLoop() {
 	float fdeltaTime = 0;								// time of one frame
 	
 	int currentAnim = 0;								// var for animation
-	bool faceRight = true;
+	bool faceRight = true;								// to define mirror of texture
 	
-	bool isStart = true; 
+	bool isStart = true;								// status of player (to show start menu)
 
 	Object player1;
 	Camera camera1;
 	Dialogue dialogue1;
+	
 
 	sf::String	metaString = "META";
 	sf::Text	metaText;
@@ -64,6 +69,7 @@ void GameManager::gameLoop() {
 	///////////////////////////////////////////// generate lvl
 	std::vector<Object> obj_tab;
 	generateLvl( obj_tab );
+	bcg1.setLevelDistance( abs( obj_tab.at( obj_tab.size() - 1 ).getPosition().x ) );
 
 	/////////////////////////////////////////////
 	bool isSpacecClicked = false;
@@ -126,7 +132,9 @@ void GameManager::gameLoop() {
 		
 		/////////////////////////////////////////////////////// change camera position
 
-		camera1.updatePosition( player1, obj_tab, sf::Vector2f( -(priviousPlayerPos.x - player1.getPosition().x), 0 ) );
+		camera1.updatePosition( player1, obj_tab, bcg1, sf::Vector2f( -(priviousPlayerPos.x - player1.getPosition().x), 0 ) );
+
+		//bcg1.animateTextures( sf::Vector2f( -(priviousPlayerPos.x - player1.getPosition().x), 0 ), fdeltaTime );			 // update bcg positions
 
 		priviousPlayerPos.x = player1.getPosition().x;		 // update player position
 		/////////////////////////////////////////////////////// check player status (if he falls, or wins)
@@ -144,6 +152,8 @@ void GameManager::gameLoop() {
 		}
 		/////////////////////////////////////////////////////// draw all obj
 		window.clear();
+
+		bcg1.displayTextures( window );
 
 		metaText.setPosition( -obj_tab.at( obj_tab.size() - 1 ).getPosition().x,
 			-obj_tab.at( obj_tab.size() - 1 ).getPosition().y + 10 );

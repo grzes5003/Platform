@@ -1,32 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Physic">
-    <Position X="6.5" Y="3.75" Width="1.5" />
+    <Position X="6.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAAgAAAAAAAAAAAAABAAAAYAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACgAgAAAAAAAAAAAAABAAAAYAAACAAAAAAAAAAAAA=</HashCode>
       <FileName>Physic.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameManager">
-    <Position X="6.5" Y="1.5" Width="1.5" />
+    <Position X="4.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAABQAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAAAAAAIBQAAA=</HashCode>
       <FileName>GameManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Object">
-    <Position X="3.75" Y="6.5" Width="1.5" />
+    <Position X="4.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAQAAAAAgAAAAAAAAAAAAAAAAAAAAAAAQGAA=</HashCode>
+      <HashCode>gAAAIAAJRYIgAAAgAAGAAAAAAAAEAgAAAAAAAAAQEgA=</HashCode>
       <FileName>Object.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Ridigbody">
-    <Position X="2.5" Y="1.5" Width="1.5" />
+    <Position X="3" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAIAAAAQAAAAIAAAAAAACAAAAAQAIAAAACA=</HashCode>
       <FileName>Ridigbody.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Camera">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAABAAQAAAgAAAAAAAACAAAAAAAIAAAAA=</HashCode>
+      <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dialogue">
+    <Position X="8.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAABAAQAAAQCAiAAAAAAACAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Dialogue.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="pos" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>pos.h</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

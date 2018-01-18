@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "Background.h"
 
 class Camera
 {
@@ -14,6 +15,6 @@ public:
 	void resetCamera( Object & player, std::vector<Object> & tab );
 	
 	sf::Vector2f getCurrentOffset();
-	sf::Vector2f updatePosition(Object & player, std::vector<Object> & tab, sf::Vector2f deltaPlayerX);
+	sf::Vector2f updatePosition(Object & player, std::vector<Object> & tab, Background & bcg,sf::Vector2f deltaPlayerX);
 };
 
