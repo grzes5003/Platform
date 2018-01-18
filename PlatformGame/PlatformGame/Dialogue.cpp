@@ -16,6 +16,10 @@ void Dialogue::showDialogue( int dtype, sf::RenderWindow & window ) {
 			text.setString( win );
 			text.setPosition( SCREEN_HEIGHT / 2 - 5 * fontSize, SCREEN_WIDTH / 2 - fontSize );
 		}
+		else if( dtype == 3 ) {
+			text.setString( late );
+			text.setPosition( SCREEN_HEIGHT / 2 - 5 * fontSize, SCREEN_WIDTH / 2 - fontSize );
+		}
 		window.clear();
 		window.draw( text );
 		window.display();
@@ -32,8 +36,9 @@ Dialogue::Dialogue() {
 	
 
 	start = "To start press space";
-	restart = "          You Died \n To restart press space";
+	late = "          It's to late \n To restart press space";
 	win = "          You Won \n To restart press space";
+	restart = "   You broke your leg \n to restart press space";
 
 }
 
